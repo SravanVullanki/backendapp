@@ -78,9 +78,9 @@ const updatecustomerprofile = async (request, response) =>
       try {
         const input = request.body; 
         const productId = input.productId; 
-        const alreadyBought = await ProductOrder.findOne({ productId }); 
+        const product = await Product.findById(productId);
     
-        if (!alreadyBought) {
+        if (product.quantity > 0) {
           const productorder = new ProductOrder(input);
           await productorder.save();
     
@@ -92,7 +92,9 @@ const updatecustomerprofile = async (request, response) =>
           } else {
             response.status(200).send('Product is out of stock');
           }
-        } else {
+        } 
+        else 
+        {
           response.status(200).send('OOPS ... You have already bought this Product');
         }
       } catch(e) {
