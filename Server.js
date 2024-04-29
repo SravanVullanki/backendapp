@@ -1,6 +1,7 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
+require('dotenv').config();
 
 //MongoDB Compass Connection
 // const dburl = "mongodb://localhost:27017/sdpproject"
@@ -10,7 +11,7 @@ const cors = require("cors")
 //     console.log(err.message)
 // });
 //MongoDb Atlas Connection
-const dburl = "mongodb+srv://admin:admin@cluster0.4uf4q8c.mongodb.net/sdpproject?retryWrites=true&w=majority&appName=Cluster0"
+const dburl = require('dotenv').config();
 mongoose.connect(dburl).then(() => {
     console.log("Connected to MongoDB Atlas Successfully")
 }).catch((err) => {
@@ -32,7 +33,7 @@ app.use("",customerrouter) // to include all  customer routes
 app.use("",retailerrouter) // to include all the retailer routes
 app.use("",mainrouter) // to include all the main routes
 
-const port=2014
+const port=process.env.PORT || 2014
 app.listen(port,()=>{
     console.log(`Server is running at port ${port}`)
 })
